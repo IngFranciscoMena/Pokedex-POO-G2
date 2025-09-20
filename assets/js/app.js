@@ -45,9 +45,8 @@ async function buscarPokemonPorNombre(nombre) {
         // crear el objeto pokemon
         const pokemon = crearObjetoPokemon(data);
 
-
+        mostrarPokemon(pokemon);
         // debbugin
-        console.log(pokemon);
         
 
     } catch (error) {
@@ -63,4 +62,32 @@ function crearObjetoPokemon(json){
     const tipo = json.types[0].type.name; // arreglos empizan con el indice 0, 1, 2
 
     return new Pokemon(id, nombre, imagen, tipo);
+}
+
+function mostrarPokemon(pokemon){
+    // Crear elementos html para mostrar la información
+
+    // crear un elemento div para alamcenar el card
+    const col = document.createElement("div");
+    col.classList.add("col-12", "col-sm-9", "col-md-6", "col-lg-3");
+
+    // crear el elemento card
+    const card = document.createElement("div");
+    card.classList.add("card", "h-100", "text-center", "shadow-lg");
+
+    // crear elemento imágen
+    const img = document.createElement("img");
+    img.classList.add("card-img-top", "p-3");
+    img.src = pokemon.imagen;
+    img.alt = pokemon.nombre;
+
+
+    // Ensamblar los elementos
+    card.appendChild(img);
+
+    col.appendChild(card);
+
+    const div = document.getElementById("contendor-pokemon");
+    div.appendChild(col);
+
 }
