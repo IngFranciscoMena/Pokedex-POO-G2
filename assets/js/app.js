@@ -81,9 +81,39 @@ function mostrarPokemon(pokemon){
     img.src = pokemon.imagen;
     img.alt = pokemon.nombre;
 
+    // crear un elemento card-body
+    const body = document.createElement("div");
+    body.classList.add("card-body");
+
+    // crear un elemento h5
+    const titulo = document.createElement("h5");
+    titulo.classList.add("card-title");
+    titulo.textContent = pokemon.nombre;
+
+    // crear un elemento p
+    const pid = document.createElement("p");
+    pid.classList.add("card-text");
+    pid.textContent = pokemon.id;
+
+    // crear un elemento p
+    const tipo = document.createElement("p");
+    tipo.classList.add("card-text");
+
+    // crear un elemento badge
+    const badge = document.createElement("span");
+    badge.classList.add("badge", "bg-warning");
+    badge.textContent = pokemon.tipo;
 
     // Ensamblar los elementos
+
+    tipo.appendChild(badge);
+
+    body.appendChild(titulo);
+    body.appendChild(pid);
+    body.appendChild(tipo);
+
     card.appendChild(img);
+    card.appendChild(body);
 
     col.appendChild(card);
 
