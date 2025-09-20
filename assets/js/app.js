@@ -39,14 +39,28 @@ async function buscarPokemonPorNombre(nombre) {
             throw new Error("No se encontro el pokemon");
         } // not = ! and && or ||
 
-        // parsear la informacion
-        const json = await resultado.json()
+        // parsear la informacion a formato json
+        const data = await resultado.json()
+
+        // crear el objeto pokemon
+        const pokemon = crearObjetoPokemon(data);
+
 
         // debbugin
-        console.log(json);
+        console.log(pokemon);
+        
 
     } catch (error) {
         console.log(error)
     }
 
+}
+
+function crearObjetoPokemon(json){
+    const id = json.id;
+    const nombre = json.name;
+    const imagen = json.sprites.front_default;
+    const tipo = json.types[0].type.name; // arreglos empizan con el indice 0, 1, 2
+
+    return new Pokemon(id, nombre, imagen, tipo);
 }
