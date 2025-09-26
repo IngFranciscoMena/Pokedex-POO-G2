@@ -47,6 +47,11 @@ async function buscarPokemonPorNombre(nombre) {
 
         mostrarPokemon(pokemon);
         // debbugin
+        // pokemon.tipo.forEach(element => {
+        //     console.log(element.type.name);
+        // });
+
+        // console.log(pokemon);
         
 
     } catch (error) {
@@ -59,7 +64,7 @@ function crearObjetoPokemon(json){
     const id = json.id;
     const nombre = json.name;
     const imagen = json.sprites.front_default;
-    const tipo = json.types[0].type.name; // arreglos empizan con el indice 0, 1, 2
+    const tipo = json.types; // arreglos empizan con el indice 0, 1, 2
 
     return new Pokemon(id, nombre, imagen, tipo);
 }
@@ -95,22 +100,35 @@ function mostrarPokemon(pokemon){
     pid.classList.add("card-text");
     pid.textContent = pokemon.id;
 
-    // crear un elemento p
-    const tipo = document.createElement("p");
-    tipo.classList.add("card-text");
-
-    // crear un elemento badge
-    const badge = document.createElement("span");
-    badge.classList.add("badge", "bg-warning");
-    badge.textContent = pokemon.tipo;
-
     // Ensamblar los elementos
-
-    tipo.appendChild(badge);
 
     body.appendChild(titulo);
     body.appendChild(pid);
-    body.appendChild(tipo);
+
+    // Mostrar todos los tipos de pokemones que extraemos de la consulta   
+
+    pokemon.tipo.forEach(e => {
+        
+        // crear un elemento p
+        const tipo = document.createElement("p");
+        tipo.classList.add("card-text");
+
+        // crear un elemento badge
+        const badge = document.createElement("span");
+
+        if (e.type.name === 'fire') badge.classList.add("badge", "bg-danger");
+        else if (e.type.name === 'water') badge.classList.add("badge", "bg-primary");
+        else if (e.type.name === 'electric') badge.classList.add("badge", "bg-warning");
+        else badge.classList.add("badge", "bg-secondary");
+
+        badge.textContent = e.type.name;
+
+        // ensamblar
+        tipo.appendChild(badge);
+
+        body.appendChild(tipo);
+
+    });    
 
     card.appendChild(img);
     card.appendChild(body);
